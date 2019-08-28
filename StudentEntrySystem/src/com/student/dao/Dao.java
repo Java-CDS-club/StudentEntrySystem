@@ -1,6 +1,7 @@
 package com.student.dao;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Dao {
@@ -85,7 +86,6 @@ public class Dao {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM Entry WHERE date BETWEEN ? AND ?;");
 			ps.setDate(1, new java.sql.Date(from.getTime()));
 			ps.setDate(2, new java.sql.Date(to.getTime()));
-			System.out.println(ps.toString());
 			ResultSet rs = ps.executeQuery();
 			int totalRows = 0;
 			rs.last();
@@ -96,13 +96,13 @@ public class Dao {
 				return null;
 			} else {
 				do {
-					arr[i][0] = rs.getString(1);
-					arr[i][1] = rs.getString(2);
-					arr[i][2] = rs.getString(3);
-					arr[i][3] = rs.getString(4);
-					arr[i][4] = rs.getString(5);
-					arr[i][5] = rs.getString(6);
-					arr[i][6] = rs.getString(7);
+					arr[i][0] = rs.getString("serial");
+					arr[i][1] = rs.getString("studno");
+					arr[i][2] = rs.getString("name");
+					arr[i][3] = rs.getString("work");
+					arr[i][4] = (new SimpleDateFormat("dd-MM-yyyy")).format(rs.getDate("date"));
+					arr[i][5] = rs.getString("entry");
+					arr[i][6] = rs.getString("exit");
 					i++;
 				} while (rs.next());
 			}

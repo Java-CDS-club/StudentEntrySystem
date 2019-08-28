@@ -106,11 +106,9 @@ public class Exit extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Date objDate = new Date(); // Current System Date and time is assigned to objDate
-//				System.out.println(objDate);
-				String strDateFormat = "hh:mm:ss a dd-MMM-yyyy"; // Date format is Specified
-				SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat); // Date format string is passed as an
-																				// argument to the Date format object
+				Date objDate = new Date();
+				String strDateFormat = "hh:mm:ss a dd-MMM-yyyy";
+				SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat); 
 				lblTimer.setText(objSDF.format(objDate));
 
 			}
