@@ -25,7 +25,7 @@ public class Entry extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	static Entry frame;
 	private Timer t;
 
 	/**
@@ -35,8 +35,8 @@ public class Entry extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Entry window = new Entry(args);
-					window.frame.setVisible(true);
+					frame = new Entry(args);
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,43 +55,40 @@ public class Entry extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(String[] args) {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 500, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-//		frame.setContentPane(new JLabel(MainContainer.resize(
-//				new ImageIcon("F:\\College\\Sem V\\stylish-hexagonal-line-pattern-background_1017-19742.jpg"),
-//				frame.getWidth(), frame.getHeight())));
+		setResizable(false);
+		setBounds(100, 100, 500, 500);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
+		
 		JLabel lblTeamBdcoe = new JLabel("Team BDCoE");
 		lblTeamBdcoe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTeamBdcoe.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblTeamBdcoe.setBounds(150, 45, 200, 40);
-		frame.getContentPane().add(lblTeamBdcoe);
+		getContentPane().add(lblTeamBdcoe);
 
 		JLabel Name = new JLabel("Hi Student");
 		Name.setHorizontalAlignment(SwingConstants.LEFT);
 		Name.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		Name.setBounds(50, 120, 400, 40);
-		frame.getContentPane().add(Name);
+		getContentPane().add(Name);
 
 		JLabel Time = new JLabel("Time :");
 		Time.setHorizontalAlignment(SwingConstants.RIGHT);
 		Time.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		Time.setBounds(100, 180, 50, 30);
-		frame.getContentPane().add(Time);
+		getContentPane().add(Time);
 
 		JComboBox<String> course = new JComboBox<String>();
 		course.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		course.setModel(new DefaultComboBoxModel<String>(new String[] { "Work", "Study ", "Project" }));
 		course.setBounds(200, 235, 200, 30);
-		frame.getContentPane().add(course);
+		getContentPane().add(course);
 
 		JLabel lblSelectCourse = new JLabel("Select Task :");
 		lblSelectCourse.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSelectCourse.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblSelectCourse.setBounds(80, 233, 100, 30);
-		frame.getContentPane().add(lblSelectCourse);
+		getContentPane().add(lblSelectCourse);
 
 		JButton btnNewButton = new JButton("Enter");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -108,13 +105,13 @@ public class Entry extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton.setBounds(210, 328, 80, 30);
-		frame.getContentPane().add(btnNewButton);
+		getContentPane().add(btnNewButton);
 
 		JLabel lblTimer = new JLabel("Time");
 		lblTimer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTimer.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimer.setBounds(200, 180, 200, 30);
-		frame.getContentPane().add(lblTimer);
+		getContentPane().add(lblTimer);
 
 		t = new Timer(1000, new ActionListener() {
 

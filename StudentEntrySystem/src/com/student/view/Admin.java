@@ -32,7 +32,7 @@ public class Admin extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	static Admin frame;
 	private JLabel lblFrom;
 	private JLabel lblTo;
 
@@ -45,8 +45,8 @@ public class Admin extends JFrame {
 				try {
 					UIManager.setLookAndFeel(
 							((LookAndFeelInfo) Array.get(UIManager.getInstalledLookAndFeels(), 1)).getClassName());
-					Admin window = new Admin();
-					window.frame.setVisible(true);
+					frame = new Admin();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -66,39 +66,38 @@ public class Admin extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 500, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setResizable(false);
+		setBounds(100, 100, 500, 500);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
 
 		JLabel lblTeamBdcoe = new JLabel("Team BDCoE");
 		lblTeamBdcoe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTeamBdcoe.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblTeamBdcoe.setBounds(150, 45, 200, 40);
-		frame.getContentPane().add(lblTeamBdcoe);
+		getContentPane().add(lblTeamBdcoe);
 
 		lblFrom = new JLabel("From");
 		lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblFrom.setBounds(30, 125, 50, 30);
-		frame.getContentPane().add(lblFrom);
+		getContentPane().add(lblFrom);
 
 		lblTo = new JLabel("To");
 		lblTo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTo.setBounds(280, 125, 50, 30);
-		frame.getContentPane().add(lblTo);
+		getContentPane().add(lblTo);
 
 		JXDatePicker from = new JXDatePicker();
 		from.getEditor().setFont(new Font("Tahoma", Font.PLAIN, 13));
 		from.setBounds(100, 125, 120, 30);
 		from.setDate(Calendar.getInstance().getTime());
-		frame.getContentPane().add(from);
+		getContentPane().add(from);
 
 		JXDatePicker to = new JXDatePicker();
 		to.getEditor().setFont(new Font("Tahoma", Font.PLAIN, 13));
 		to.setBounds(340, 125, 120, 30);
 		to.setDate(Calendar.getInstance().getTime());
-		frame.getContentPane().add(to);
+		getContentPane().add(to);
 
 		from.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
@@ -121,7 +120,7 @@ public class Admin extends JFrame {
 		JScrollPane pane = new JScrollPane(table);
 		pane.setSize(470, 200);
 		pane.setLocation(10, 180);
-		frame.getContentPane().add(pane);
+		getContentPane().add(pane);
 
 		JButton btnNewButton = new JButton("GET");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -141,6 +140,6 @@ public class Admin extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnNewButton.setBounds(200, 400, 80, 30);
-		frame.getContentPane().add(btnNewButton);
+		getContentPane().add(btnNewButton);
 	}
 }

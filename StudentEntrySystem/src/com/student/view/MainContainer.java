@@ -32,7 +32,7 @@ public class MainContainer extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame Frame;
+	static MainContainer Frame;
 	private JTextField Studnum, user;
 	private JTextField name;
 	private JPasswordField pass;
@@ -55,8 +55,8 @@ public class MainContainer extends JFrame {
 				try {
 					UIManager.setLookAndFeel(
 							((LookAndFeelInfo) Array.get(UIManager.getInstalledLookAndFeels(), 1)).getClassName());
-					MainContainer window = new MainContainer();
-					window.Frame.setVisible(true);
+					Frame = new MainContainer();
+					Frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -75,16 +75,19 @@ public class MainContainer extends JFrame {
 	 * Initialize the contents of the Frame.
 	 */
 	private void initialize() {
-		Frame = new JFrame();
-		Frame.setResizable(false);
-		Frame.setBounds(100, 100, 500, 500);
-		Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Frame.getContentPane().setLayout(null);
+		setResizable(false);
+		setBounds(100, 100, 500, 500);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
+
+//		setContentPane(new JLabel(MainContainer.resize(
+//				new ImageIcon("F:\\College\\Sem V\\stylish-hexagonal-line-pattern-background_1017-19742.jpg"),
+//				getWidth(), getHeight())));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 500, 500);
 
-		Frame.getContentPane().add(tabbedPane);
+		getContentPane().add(tabbedPane);
 
 		JPanel student = new JPanel();
 		tabbedPane.addTab("Student", null, student, null);

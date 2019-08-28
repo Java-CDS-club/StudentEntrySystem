@@ -26,7 +26,7 @@ public class Exit extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	static Exit frame;
 	private Timer t;
 
 	/**
@@ -38,8 +38,8 @@ public class Exit extends JFrame {
 				try {
 					UIManager.setLookAndFeel(
 							((LookAndFeelInfo) Array.get(UIManager.getInstalledLookAndFeels(), 1)).getClassName());
-					Exit window = new Exit(args);
-					window.frame.setVisible(true);
+					frame = new Exit(args);
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,29 +58,28 @@ public class Exit extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(String[] args) {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 500, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setResizable(false);
+		setBounds(100, 100, 500, 500);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
 
 		JLabel lblTeamBdcoe = new JLabel("Team BDCoE");
 		lblTeamBdcoe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTeamBdcoe.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblTeamBdcoe.setBounds(150, 45, 200, 40);
-		frame.getContentPane().add(lblTeamBdcoe);
+		getContentPane().add(lblTeamBdcoe);
 
 		JLabel Name = new JLabel("Hi Student");
 		Name.setHorizontalAlignment(SwingConstants.LEFT);
 		Name.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		Name.setBounds(50, 150, 400, 40);
-		frame.getContentPane().add(Name);
+		getContentPane().add(Name);
 
 		JLabel Time = new JLabel("Time :");
 		Time.setHorizontalAlignment(SwingConstants.RIGHT);
 		Time.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		Time.setBounds(100, 230, 50, 30);
-		frame.getContentPane().add(Time);
+		getContentPane().add(Time);
 
 		JButton btnNewButton = new JButton("Exit");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -95,13 +94,13 @@ public class Exit extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton.setBounds(210, 328, 80, 30);
-		frame.getContentPane().add(btnNewButton);
+		getContentPane().add(btnNewButton);
 
 		JLabel lblTimer = new JLabel("Timer");
 		lblTimer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTimer.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimer.setBounds(200, 230, 200, 30);
-		frame.getContentPane().add(lblTimer);
+		getContentPane().add(lblTimer);
 
 		t = new Timer(1000, new ActionListener() {
 

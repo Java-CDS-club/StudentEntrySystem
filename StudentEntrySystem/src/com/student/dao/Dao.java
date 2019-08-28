@@ -43,7 +43,6 @@ public class Dao {
 			PreparedStatement ps = con.prepareStatement("select * from Entry where studno = ? and name = ?;");
 			ps.setString(1, studno);
 			ps.setString(2, name);
-			System.out.println(ps.toString());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				String entry = rs.getString("entry");
@@ -70,7 +69,6 @@ public class Dao {
 			ps.setString(1, time.toString());
 			ps.setString(2, studno);
 			ps.setString(3, name);
-			System.out.println(ps.toString());
 			status = ps.executeUpdate();
 			con.close();
 		} catch (Exception ex) {
@@ -95,7 +93,7 @@ public class Dao {
 			rs.beforeFirst();
 			arr = new String[totalRows][7];
 			if (rs.next() == false) {
-				System.out.println("ResultSet in empty in Java");
+				return null;
 			} else {
 				do {
 					arr[i][0] = rs.getString(1);
