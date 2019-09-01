@@ -4,6 +4,11 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,6 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+
+import org.apache.commons.net.ntp.NTPUDPClient;
+import org.apache.commons.net.ntp.TimeInfo;
 
 import com.student.dao.Dao;
 
@@ -59,7 +67,7 @@ public class Entry extends JFrame {
 		setBounds(100, 100, 500, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-		
+
 		JLabel lblTeamBdcoe = new JLabel("Team BDCoE");
 		lblTeamBdcoe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTeamBdcoe.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -113,14 +121,39 @@ public class Entry extends JFrame {
 		lblTimer.setBounds(200, 180, 200, 30);
 		getContentPane().add(lblTimer);
 
+		try {
+			URL url = new URL("http://www.google.com");
+			URLConnection connection = url.openConnection();
+			connection.connect();
+		} catch (MalformedURLException e) {
+			JOptionPane.showMessageDialog(Entry.this, "Internet Connection Required", "Warning!",
+					JOptionPane.WARNING_MESSAGE);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(Entry.this, "Internet Connection Required", "Warning!",
+					JOptionPane.WARNING_MESSAGE);
+		}
 		t = new Timer(1000, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Date objDate = new Date();
-				String strDateFormat = "hh:mm:ss a dd-MMM-yyyy";
-				SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
-				lblTimer.setText(objSDF.format(objDate));
+				String TIME_SERVER = "pool.ntp.org";
+				NTPUDPClient timeClient = new NTPUDPClient();
+				InetAddress inetAddress;
+				try {
+					inetAddress = InetAddress.getByName(TIME_SERVER);
+					TimeInfo timeInfo = timeClient.getTime(inetAddress);
+					long returnTime = timeInfo.getMessage().getTransmitTimeStamp().getTime();
+					// long returnTime = timeInfo.getMessage().getReceiveTimeStamp().getTime();
+					Date objDate = new Date(returnTime);
+					String strDateFormat = "hh:mm:ss a dd-MMM-yyyy";
+					SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
+					lblTimer.setText(objSDF.format(objDate));
+				} catch (Exception e1) {
+					Date objDate = new Date();
+					String strDateFormat = "hh:mm:ss a dd-MMM-yyyy";
+					SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
+					lblTimer.setText(objSDF.format(objDate));
+				}
 
 			}
 		});

@@ -112,10 +112,8 @@ public class Admin extends JFrame {
 		DefaultTableModel mod = new DefaultTableModel(columnNames, 0);
 		JTable table = new JTable(mod);
 		table.setEnabled(false);
-		table.setColumnSelectionAllowed(true);
-		table.setCellSelectionEnabled(true);
 		TableColumnModel columnModel = table.getColumnModel();
-		columnModel.getColumn(0).setPreferredWidth(20);
+		columnModel.getColumn(0).setPreferredWidth(25);
 
 		JScrollPane pane = new JScrollPane(table);
 		pane.setSize(470, 200);
@@ -141,5 +139,41 @@ public class Admin extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnNewButton.setBounds(200, 400, 80, 30);
 		getContentPane().add(btnNewButton);
+
+		JButton Back = new JButton("Back");
+		Back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainContainer.main(new String[] {});
+				frame.dispose();
+			}
+		});
+		Back.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		Back.setBounds(30, 400, 80, 30);
+		getContentPane().add(Back);
+
+		JButton Export = new JButton("Export");
+		Export.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String header[] = new String[table.getColumnCount()];
+				String body[][] = new String[table.getRowCount()][table.getColumnCount()];
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					header[i] = table.getColumnName(i);
+				}
+				for (int i = 0; i < table.getRowCount(); i++) {
+					for (int j = 0; j < table.getColumnCount(); j++) {
+						body[i][j] = String.valueOf(table.getValueAt(i, j));
+					}
+				}
+				try {
+					Dao.getDocument(header, body);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		Export.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		Export.setBounds(380, 400, 80, 30);
+		getContentPane().add(Export);
 	}
 }
