@@ -196,7 +196,6 @@ public class MainContainer extends JFrame {
 				if (!((key >= 48 && key <= 57) || (key == KeyEvent.VK_DELETE) || (key == KeyEvent.VK_BACK_SPACE))) {
 					e.consume();
 				}
-
 			}
 		});
 

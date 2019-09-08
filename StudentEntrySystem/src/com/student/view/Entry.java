@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
@@ -35,6 +36,15 @@ public class Entry extends JFrame {
 	private static final long serialVersionUID = 1L;
 	static Entry frame;
 	private Timer t;
+	String TIME_SERVER = "pool.ntp.org";
+	NTPUDPClient timeClient = new NTPUDPClient();
+	InetAddress inetAddress;
+	long returnTime;
+	TimeInfo timeInfo;
+	Calendar c, c1;
+	Integer sec;
+	Date objDate;
+	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss     dd MMM yyyy");
 
 	/**
 	 * Launch the application.
@@ -101,7 +111,8 @@ public class Entry extends JFrame {
 		JButton btnNewButton = new JButton("Enter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Dao.Entry(args[0], args[1], course.getSelectedItem().toString()) == 1) {
+				if (Dao.Entry(args[0], args[1], course.getSelectedItem().toString(),
+						new java.sql.Time(c1.getTime().getTime())) == 1) {
 					JOptionPane.showMessageDialog(Entry.this, "Entry Done Successfully");
 					MainContainer.main(new String[] {});
 					frame.dispose();
@@ -132,29 +143,31 @@ public class Entry extends JFrame {
 			JOptionPane.showMessageDialog(Entry.this, "Internet Connection Required", "Warning!",
 					JOptionPane.WARNING_MESSAGE);
 		}
+
+		try {
+			inetAddress = InetAddress.getByName(TIME_SERVER);
+			timeInfo = timeClient.getTime(inetAddress);
+			returnTime = timeInfo.getMessage().getTransmitTimeStamp().getTime();
+			// long returnTime = timeInfo.getMessage().getReceiveTimeStamp().getTime();
+			objDate = new Date(returnTime);
+		} catch (Exception e) {
+			e.printStackTrace();
+			objDate = new Date();
+		} finally {
+			c = Calendar.getInstance();
+			c.setTime(objDate);
+			c1 = Calendar.getInstance();
+			sec = c.get(Calendar.SECOND);
+		}
+
 		t = new Timer(1000, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String TIME_SERVER = "pool.ntp.org";
-				NTPUDPClient timeClient = new NTPUDPClient();
-				InetAddress inetAddress;
-				try {
-					inetAddress = InetAddress.getByName(TIME_SERVER);
-					TimeInfo timeInfo = timeClient.getTime(inetAddress);
-					long returnTime = timeInfo.getMessage().getTransmitTimeStamp().getTime();
-					// long returnTime = timeInfo.getMessage().getReceiveTimeStamp().getTime();
-					Date objDate = new Date(returnTime);
-					String strDateFormat = "hh:mm:ss a dd-MMM-yyyy";
-					SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
-					lblTimer.setText(objSDF.format(objDate));
-				} catch (Exception e1) {
-					Date objDate = new Date();
-					String strDateFormat = "hh:mm:ss a dd-MMM-yyyy";
-					SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
-					lblTimer.setText(objSDF.format(objDate));
-				}
-
+				sec += 1;
+				c1.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), c.get(Calendar.HOUR_OF_DAY),
+						c.get(Calendar.MINUTE), sec);
+				lblTimer.setText(String.valueOf(sdf.format(c1.getTime())));
 			}
 		});
 		t.start();

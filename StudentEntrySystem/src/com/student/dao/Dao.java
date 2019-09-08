@@ -29,9 +29,8 @@ public class Dao {
 		return con;
 	}
 
-	public static int Entry(String studno, String name, String work) {
+	public static int Entry(String studno, String name, String work, Time time) {
 		int status = 0;
-		Time time = new Time(System.currentTimeMillis());
 		try {
 			Connection con = Dao.getConnection();
 			PreparedStatement ps = con
@@ -72,9 +71,8 @@ public class Dao {
 		return status;
 	}
 
-	public static int Exit(String studno, String name) {
+	public static int Exit(String studno, String name, Time time) {
 		int status = 0;
-		Time time = new Time(System.currentTimeMillis());
 		try {
 			Connection con = Dao.getConnection();
 			PreparedStatement ps = con
