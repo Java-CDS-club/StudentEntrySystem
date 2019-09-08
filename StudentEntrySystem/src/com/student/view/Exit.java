@@ -45,7 +45,7 @@ public class Exit extends JFrame {
 	Calendar c, c1;
 	Integer sec;
 	Date objDate;
-	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss     dd MMM yyyy");
+	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a dd-MMM-yyyy");
 
 	/**
 	 * Launch the application.
