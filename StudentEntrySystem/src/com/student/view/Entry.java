@@ -54,6 +54,7 @@ public class Entry extends JFrame {
 			public void run() {
 				try {
 					frame = new Entry(args);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -43,6 +43,7 @@ public class MainContainer extends JFrame {
 					UIManager.setLookAndFeel(
 							((LookAndFeelInfo) Array.get(UIManager.getInstalledLookAndFeels(), 1)).getClassName());
 					Frame = new MainContainer();
+					Frame.setLocationRelativeTo(null);
 					Frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

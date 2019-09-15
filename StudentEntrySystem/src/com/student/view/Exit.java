@@ -57,6 +57,7 @@ public class Exit extends JFrame {
 					UIManager.setLookAndFeel(
 							((LookAndFeelInfo) Array.get(UIManager.getInstalledLookAndFeels(), 1)).getClassName());
 					frame = new Exit(args);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
